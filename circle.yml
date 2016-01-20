@@ -1,16 +1,16 @@
-machine:
-  php:
-    version: 5.6.5
-
-dependencies:
-  cache_directories:
-    - vendor
-    - node_modules
-  pre:
-    - sudo pip install awscli
-
 test:
-  production:
+  override:
+    - php ./test.php
+deployment:
+  staging:
     branch: master
-    commands:
-      - ./.circle/deploy-production.sh
+    codedeploy:
+      circleci-demo-app:
+        application_root: /
+        region: us-west-2
+        revision_location:
+          revision_type: S3
+          s3_location:
+            bucket: sample-bucket-rahul
+            key_pattern: circleci-demo-app-{BRANCH}-{SHORT_COMMIT}
+        deployment_group: circleci-demo-dg
