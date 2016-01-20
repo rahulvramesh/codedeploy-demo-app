@@ -3,15 +3,14 @@ test:
     - php ./test.php
 deployment:
   staging:
-    branch: development
+    branch: master
     codedeploy:
-      codedeploy-demo-app:
+      circleci-demo-app:
         application_root: /
+        region: us-west-2
         revision_location:
           revision_type: S3
           s3_location:
             bucket: codedeployrahul
-            key_pattern: codedeployrahul/my-app-{SHORT_COMMIT}-{BUILD_NUM}
-        region: us-west-2
+            key_pattern: circleci-demo-app-{BRANCH}-{SHORT_COMMIT}
         deployment_group: my-deployment-group
-        deployment_config: CodeDeployDefault.AllAtOnce
