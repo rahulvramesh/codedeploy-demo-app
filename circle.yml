@@ -10,16 +10,6 @@ dependencies:
     - sudo pip install awscli
 
 test:
-  pre:
-    - ./bin/compile-js
-  override:
-    - ./vendor/phpspec/phpspec/bin/phpspec run
-
-deployment:
-  stage:
-    branch: develop
-    commands:
-      - ./.circle/deploy-stage.sh
   production:
     branch: master
     commands:
