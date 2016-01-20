@@ -5,11 +5,5 @@ deployment:
   staging:
     branch: master
     codedeploy:
-      circleci-demo-app:
-        application_root: /
-        revision_location:
-          revision_type: S3
-          s3_location:
-            bucket: sample-bucket-rahul
-            key_pattern: circleci-demo-app-{BRANCH}-{SHORT_COMMIT}
-        deployment_group: circleci-demo-dg
+      codedeploy-demo-app:
+        deployment_group: my-deployment-group
