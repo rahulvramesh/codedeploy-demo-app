@@ -1,16 +1,26 @@
+machine:
+  php:
+    version: 5.6.5
+
+dependencies:
+  cache_directories:
+    - vendor
+    - node_modules
+  pre:
+    - sudo pip install awscli
+
 test:
+  pre:
+    - ./bin/compile-js
   override:
-    - php ./test.php
+    - ./vendor/phpspec/phpspec/bin/phpspec run
+
 deployment:
-  staging:
+  stage:
+    branch: develop
+    commands:
+      - ./.circle/deploy-stage.sh
+  production:
     branch: master
-    codedeploy:
-      circleci-demo-app:
-        application_root: /
-        region: us-west-2
-        revision_location:
-          revision_type: S3
-          s3_location:
-            bucket: codedeployrahul
-            key_pattern: circleci-demo-app-{BRANCH}-{SHORT_COMMIT}
-        deployment_group: my-deployment-group
+    commands:
+      - ./.circle/deploy-production.sh
