@@ -1,3 +1,6 @@
+test:
+  override:
+    - php ./test.php
 deployment:
   staging:
     branch: development
